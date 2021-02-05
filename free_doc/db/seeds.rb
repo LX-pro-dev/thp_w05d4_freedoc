@@ -14,7 +14,7 @@ Appointment.destroy_all
 
 # Generate fake specialities
 doc_spec = ["Cardiologie", "Dermatologie", "Allergologie", "Immunologie", "Androloge", "Gynécologie", "Généraliste"]
-doc_spec.each { |i| Speciality.create(spec_name: i) }
+doc_spec.each { |i| Specialty.create(specialty_name: i) }
 
 
 # Generate fake patients
@@ -28,12 +28,10 @@ end
 
 # Generate fake doctors
 20.times do
-  spec = Speciality.order("RANDOM()").limit(1).ids[0]
+  spec = Specialty.order("RANDOM()").limit(1).ids[0]
   Doctor.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    zip_code: Faker::Number.number(digits: 5),
-    speciality: spec
   )
 end
 
@@ -41,7 +39,8 @@ end
 # Generate fake city
 20.times do
   City.create(
-    city_name: Faker::Address.city
+    city_name: Faker::Address.city,
+    city_zipcode: Faker::Number.number(digits: 5)
   )
 end
 
